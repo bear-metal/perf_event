@@ -1,9 +1,5 @@
 require 'perf_event'
-begin
-  require 'minitest/autorun'
-rescue LoadError
-  require 'minitest'
-end
+require 'minitest/autorun'
 
 class TestPerfEvent < Minitest::Test
   def test_events
