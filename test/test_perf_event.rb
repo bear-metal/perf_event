@@ -21,9 +21,11 @@ class TestPerfEvent < Minitest::Test
       14 => "Mispredicted branch instructions.",
       15 => "Bus cycles, which can be different from total cycles.",
       16 => "Stalled cycles during issue.",
-      17 => "Stalled cycles during retirement.",
-      18 => "Total cycles. Not affected by CPU frequency scaling."
+      17 => "Stalled cycles during retirement."
     }
+    if PerfEvent.const_defined?(:PERF_COUNT_HW_REF_CPU_CYCLES)
+      expected[18] = "Total cycles. Not affected by CPU frequency scaling."
+    end
     assert_equal expected, PerfEvent::EVENTS
   end
 
