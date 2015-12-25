@@ -1,0 +1,16 @@
+.libs/*
+*.lo
+*.la
+*.lai
+*.dylib.dSYM
+*.dylib
+*.o
+*.a
+*.log
+tmp/*
+*.bundle
+*.gem
+doc/*
+.DS_Store
+/**/._*
+*.so
