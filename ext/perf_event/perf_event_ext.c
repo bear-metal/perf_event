@@ -96,13 +96,13 @@ static VALUE rb_perf_event_read(VALUE obj, VALUE event)
     return 0;
 }
 
-static int rb_perf_event_i_disable(VALUE c, VALUE val, VALUE obj)
+static int rb_perf_event_reset_i(VALUE c, VALUE val, VALUE obj)
 {
     int counter;
     GetPerfEvent(obj);
     counter = FIX2INT(val);
     if (perf_event->fds[counter] == -1) return ST_CONTINUE;
-    ioctl(perf_event->fds[counter], PERF_EVENT_IOC_DISABLE);
+    ioctl(perf_event->fds[counter], PERF_EVENT_IOC_RESET);
     return ST_CONTINUE;
 }
 
@@ -123,7 +123,7 @@ static VALUE rb_perf_event_report(VALUE obj)
 static VALUE rb_perf_event_reset(VALUE obj)
 {
     GetPerfEvent(obj);
-    rb_hash_foreach(perf_event->enabled, rb_perf_event_i_disable, (VALUE)obj);
+    rb_hash_foreach(perf_event->enabled, rb_perf_event_reset_i, (VALUE)obj);
     rb_hash_clear(perf_event->enabled);
     return Qtrue;
 }
